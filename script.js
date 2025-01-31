@@ -51,7 +51,8 @@ function playRound(computerChoice, humanChoice) {
     return console.log("Opcion Invalida");
   }
 }
-function playGame() { //Se juegan 5 rondas
+function playGame() {
+  //Se juegan 5 rondas
   let computerChoice = getComputerChoice();
   let humanChoice = getHumanChoice();
   console.log(computerChoice);
@@ -86,6 +87,15 @@ function playGame() { //Se juegan 5 rondas
   console.log(humanChoice);
   playRound(computerChoice, humanChoice);
   console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
+
+  // Se define el ganador dependiendo de cual tenga el puntaje mas alto
+  if (computerWinCount > humanWinCount) {
+    console.log("La maquina gana");
+  } else if (humanWinCount > computerWinCount) {
+    console.log("Eres el ganador");
+  } else {
+    console.log("Empate");
+  }
 }
 
 playGame();
