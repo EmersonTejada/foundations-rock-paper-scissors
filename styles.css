@@ -78,13 +78,13 @@ button{
     font-size: 0.8rem;
 }
 
-.message{
+.message-container{
  display: flex;
  align-items: center;
  justify-content: center;
  padding: 10px;
  text-align: center;
 }
-.message p{
+.message{
     font-size: 0.4rem;
 }

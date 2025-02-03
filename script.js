@@ -1,6 +1,12 @@
 // Diseñar algoritmo para que computerChoice sea un numero aleatorio y en base al numero entre 0 y 2 elegir si es Rock, Paper o Scissors
 let computerWinCount = 0;
 let humanWinCount = 0;
+let computerChoice;
+let humanChoice;
+const btns = document.querySelectorAll("button");
+const updateHumanCounter = document.querySelector(".you");
+const updateComputerCounter = document.querySelector(".computer")
+const msg = document.querySelector(".message");
 
 function getComputerChoice() {
   let choice = Math.floor(Math.random() * 3);
@@ -14,8 +20,8 @@ function getComputerChoice() {
 }
 
 // Diseñar algoritmo para la eleccion humana
-function getHumanChoice() {
-  let choice = prompt("Escriba Rock, Paper o Scissors");
+function getHumanChoice(event) {
+  let choice = event.target.textContent;
   choice = choice.charAt(0).toUpperCase() + choice.slice(1).toLowerCase();
 
   if (choice === "Rock" || choice === "Paper" || choice === "Scissors") {
@@ -25,69 +31,49 @@ function getHumanChoice() {
   }
 }
 
+btns.forEach(btn => {
+  btn.addEventListener("click", (event) => {
+    humanChoice = getHumanChoice(event);
+    computerChoice = getComputerChoice();
+    playRound(computerChoice, humanChoice);
+  });
+});
+
+// btns.addEventListener("click", playRound(getComputerChoice(), getHumanChoice()))
+
 // Diseñar algoritmo para jugar una sola Ronda
 function playRound(computerChoice, humanChoice) {
   if (computerChoice === humanChoice) {
-    return console.log("Empate");
+    msg.textContent = "Empate, vuelve a intentarlo!";
   } else if (computerChoice === "Rock" && humanChoice === "Paper") {
     ++humanWinCount;
-    return console.log("Gana el humano");
+    updateHumanCounter.textContent = `${humanWinCount}`;
+    msg.textContent = `Ganaste! Tu elegiste ${humanChoice} y la computadora eligio ${computerChoice}` ;
   } else if (computerChoice === "Rock" && humanChoice === "Scissors") {
     ++computerWinCount;
-    return console.log("Gana la maquina");
+    updateComputerCounter.textContent = `${computerWinCount}`;
+    msg.textContent = `Gano la computadora! Escogio ${computerChoice} y tu escogiste ${humanChoice}`;
   } else if (computerChoice === "Paper" && humanChoice === "Rock") {
     ++computerWinCount;
-    return console.log("Gana la maquina");
+    updateComputerCounter.textContent = `${computerWinCount}`;
+    msg.textContent = `Gano la computadora! Escogio ${computerChoice} y tu escogiste ${humanChoice}`;
   } else if (computerChoice === "Paper" && humanChoice === "Scissors") {
     ++humanWinCount;
-    return console.log("Gana el humano");
+    updateHumanCounter.textContent = `${humanWinCount}`;
+    msg.textContent = `Ganaste! Tu elegiste ${humanChoice} y la computadora eligio ${computerChoice}`;
   } else if (computerChoice === "Scissors" && humanChoice === "Rock") {
     ++humanWinCount;
-    return console.log("Gana el humano");
+    updateHumanCounter.textContent = `${humanWinCount}`;
+    msg.textContent = `Ganaste! Tu elegiste ${humanChoice} y la computadora eligio ${computerChoice}`;
   } else if (computerChoice === "Scissors" && humanChoice === "Paper") {
     ++computerWinCount;
-    return console.log("Gana la maquina");
+    updateComputerCounter.textContent = `${computerWinCount}`;
+    msg.textContent = `Gano la computadora! Escogio ${computerChoice} y tu escogiste ${humanChoice}`;
   } else {
     return console.log("Opcion Invalida");
   }
+
 }
-function playGame() {
-  //Se juegan 5 rondas
-  let computerChoice = getComputerChoice();
-  let humanChoice = getHumanChoice();
-  console.log(computerChoice);
-  console.log(humanChoice);
-  playRound(computerChoice, humanChoice);
-  console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
-
-  computerChoice = getComputerChoice();
-  humanChoice = getHumanChoice();
-  console.log(computerChoice);
-  console.log(humanChoice);
-  playRound(computerChoice, humanChoice);
-  console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
-
-  computerChoice = getComputerChoice();
-  humanChoice = getHumanChoice();
-  console.log(computerChoice);
-  console.log(humanChoice);
-  playRound(computerChoice, humanChoice);
-  console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
-
-  computerChoice = getComputerChoice();
-  humanChoice = getHumanChoice();
-  console.log(computerChoice);
-  console.log(humanChoice);
-  playRound(computerChoice, humanChoice);
-  console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
-
-  computerChoice = getComputerChoice();
-  humanChoice = getHumanChoice();
-  console.log(computerChoice);
-  console.log(humanChoice);
-  playRound(computerChoice, humanChoice);
-  console.log(`Maquina: ${computerWinCount} - Humano: ${humanWinCount}`);
-
   // Se define el ganador dependiendo de cual tenga el puntaje mas alto
   if (computerWinCount > humanWinCount) {
     console.log("La maquina gana");
@@ -96,6 +82,6 @@ function playGame() {
   } else {
     console.log("Empate");
   }
-}
 
-playGame();
+
+// playGame();
